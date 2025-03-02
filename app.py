@@ -261,11 +261,11 @@ def process_chat_message(user_message):
 
 # Dictionary of supported languages
 LANGUAGES = {
-    "en": "english",
-    "zh-tw": "chinese (traditional)",
-    "es": "spanish",
-    "hi": "hindi",
-    "ar": "arabic"
+    "en": "English",
+    "zh-tw": "Chinese",
+    "es": "Spanish",
+    "hi": "Hindi",
+    "ar": "Arabic"
 }
 
 # Initialize session state for chatbot
@@ -284,7 +284,22 @@ def toggle_chat():
 # Streamlit UI
 st.set_page_config(layout="wide")
 
-st.title("Medical Data Extractor")
+# st.markdown("""
+#     <style>
+#             .title {
+#                 color: '#FF5733';
+#                 text-align: center;
+#             }
+#     </style>
+# """, unsafe_allow_html=True)
+st.title("MEDIPARSER - A Medical Data Extractor")
+# original_title = '<h2 style="font-family:Poppins,sans-serif; color: #38b2b5; font-size: 40px;">MEDIPARSER - A Medical Data Extractor</h2>'
+# st.markdown(original_title, unsafe_allow_html=True)
+# st.markdown('<div class="title"> Medical Data Extractor </div>', unsafe_allow_html=True)
+
+# header = '<h3 style="font-family:Poppins,sans-serif; color: #E3D2C3    ; font-size: 25px; font-style: italic;">Upload medical records to extract structured information</h3>'
+# st.markdown(header, unsafe_allow_html=True)
+
 st.write("Upload patient medical records to extract structured information.")
 
 # Sidebar for settings
@@ -481,16 +496,10 @@ if st.session_state.chat_visibility:
     
     with chat_container:
         
-        st.subheader("Medical Assistant Chat")
-        
+        st.subheader("Medical Assistant Chat")       
         # Create columns for the chat interface
         chat_col1, chat_col2 = st.columns([5, 1])
-        
-        # Display chat messages
-        for message in st.session_state.chat_messages:
-            with st.chat_message(message["role"]):
-                st.write(message["content"])
-        
+
         # Chat input
         if prompt := st.chat_input("Ask me about medical terms, conditions, or extracted data..."):
             # Add user message to chat history
@@ -513,5 +522,11 @@ if st.session_state.chat_visibility:
             
             # Add assistant response to chat history
             st.session_state.chat_messages.append({"role": "assistant", "content": response})
+         
+        # Display chat messages
+        # for message in st.session_state.chat_messages:
+        #     with st.chat_message(message["role"]):
+        #         st.write(message["content"])
+        
         
         st.markdown('</div>', unsafe_allow_html=True)
